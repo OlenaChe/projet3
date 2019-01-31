@@ -9,7 +9,7 @@ window = pygame.display.set_mode((600, 640))
 img_tube = pygame.image.load(image_tube).convert_alpha()
 img_needle = pygame.image.load(image_needle).convert_alpha()
 img_ether = pygame.image.load(image_ether).convert_alpha()
-
+img_legend = pygame.image.load(image_legend).convert_alpha()
 
 class Field:
 
@@ -43,6 +43,7 @@ class Field:
         tube = pygame.image.load(image_tube).convert_alpha()
         needle = pygame.image.load(image_needle).convert_alpha()
         ether = pygame.image.load(image_ether).convert_alpha()
+        legend = pygame.image.load(image_legend).convert()
 
 
         num_line = 0

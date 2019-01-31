@@ -70,6 +70,7 @@ while continuer_game:
     img_mg = pygame.image.load(image_macgyver).convert_alpha()
     img_died = pygame.image.load(image_died).convert_alpha()
     img_escaped = pygame.image.load(image_escaped).convert_alpha()
+    img_legend = pygame.image.load(image_legend).convert()
 
     if not mg.collect_tube:
         window.blit(img_tube, (tube.nc*40, tube.nl*40))
@@ -78,6 +79,7 @@ while continuer_game:
     if not mg.collect_needle:
         window.blit(img_needle, (needle.nc*40, needle.nl*40))
     window.blit(guard, (13*40, 14*40))
+    window.blit(img_legend, (0, 560))
     
     window.blit(img_mg, (mg.n_column*40, mg.n_line*40))
 
