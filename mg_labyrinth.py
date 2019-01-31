@@ -9,7 +9,7 @@ from constantes import *
 
     
 pygame.init()
-window = pygame.display.set_mode((600, 600))
+window = pygame.display.set_mode((600, 640))
 
 
 field = Field()
@@ -68,7 +68,9 @@ while continuer_game:
     img_needle = pygame.image.load(image_needle).convert_alpha()
     img_ether = pygame.image.load(image_ether).convert_alpha()
     img_mg = pygame.image.load(image_macgyver).convert_alpha()
-	
+    img_died = pygame.image.load(image_died).convert_alpha()
+    img_escaped = pygame.image.load(image_escaped).convert_alpha()
+
     if not mg.collect_tube:
         window.blit(img_tube, (tube.nc*40, tube.nl*40))
     if not mg.collect_ether:
@@ -86,9 +88,14 @@ while continuer_game:
         if mg.syringe == True:
             print("syringe is collected")
             print("MG is free")
+            window.blit(img_escaped, (0, 200))
+            pygame.display.flip()
             continuer_game = False 
+            
         else:
             print("MG is dead")
+            window.blit(img_died, (0, 200))
+            pygame.display.flip()
             continuer_game = False 
     field.update(mg.n_line, mg.n_column, mg.n_line, mg.n_column, "M")
     field.affiche_lab(window)

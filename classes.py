@@ -5,6 +5,12 @@ import pygame
 from pygame.locals import * 
 from constantes import *
 
+window = pygame.display.set_mode((600, 640))
+img_tube = pygame.image.load(image_tube).convert_alpha()
+img_needle = pygame.image.load(image_needle).convert_alpha()
+img_ether = pygame.image.load(image_ether).convert_alpha()
+
+
 class Field:
 
     def __init__(self):
@@ -23,7 +29,8 @@ class Field:
         [1,0,1,0,0,1,0,0,0,0,0,0,0,0,1],
         [1,0,1,0,0,1,1,1,1,1,1,1,0,1,1],
         [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,1,1,1,1,1,1,1,1,1,1,1,1,"G",1]
+        [1,1,1,1,1,1,1,1,1,1,1,1,1,"G",1],
+        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
         ]
     
 
@@ -60,15 +67,15 @@ class Iteams:
         self.nl = 0
         self.nc = 0
         self.name = name
-        self.labyrinth =labyrinth
+        self.labyrinth = labyrinth
     
 
     def place_iteam(self):
 
         continue_place = 1
         while continue_place:
-            nl= random.randrange(14)
-            nc=random.randrange(14)
+            nl = random.randrange(14)
+            nc = random.randrange(14)
 
             if self.labyrinth[nl][nc] == 0:
                 self.nl = nl
@@ -84,8 +91,6 @@ class Hero:
         self.image_macgyver = pygame.image.load("images/player.png").convert_alpha()
         self.n_line = 0		# position № line
         self.n_column = 13 # position № column
-        #self.x = 40*1
-        #self.y = 40*14
         self.level = labyrinth
         self.syringe = False # hero has 3 iteams
         
@@ -99,14 +104,24 @@ class Hero:
         if self.n_line == tube_.nl and self.n_column == tube_.nc:
             self.collect_tube = True
             print("tube is collected")
+            window.blit(img_tube, (40, 600))
+            pygame.display.flip()
+           
 
         if self.n_line == needle_.nl and self.n_column == needle_.nc:
             self.collect_needle = True
             print("needle is collected")
+            window.blit(img_needle, (80, 600))
+            pygame.display.flip()
+           
 
         if self.n_line == ether_.nl and self.n_column == ether_.nc:
             self.collect_ether = True
             print("ether is collected")
+            window.blit(img_ether, (120, 600))
+            pygame.display.flip()
+          
+
         if (((self.collect_needle) and (self.collect_ether)) and (self.collect_tube)):
             self.syringe = True
         
