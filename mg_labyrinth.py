@@ -88,13 +88,13 @@ while continuer_game:
         if mg.syringe == True:
             print("syringe is collected")
             print("MG is free")
-            window.blit(img_escaped, (0, 200))
+            window.blit(img_escaped, (0, 0))
             pygame.display.flip()
             continuer_game = False 
             
         else:
             print("MG is dead")
-            window.blit(img_died, (0, 200))
+            window.blit(img_died, (0, 0))
             pygame.display.flip()
             continuer_game = False 
     field.update(mg.n_line, mg.n_column, mg.n_line, mg.n_column, "M")
