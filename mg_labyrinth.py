@@ -1,3 +1,10 @@
+"""MacGiver Labyrinth Game
+Game in which we have to move MacGyver to exite of the labyrinth.
+He has to collect 3 iteams for syringe which could help to put the guard to sleep
+
+Python script
+Files: mg_labyrinthe.py, classes.py, constants.py + images"""
+
 import math
 import random
 
@@ -9,8 +16,16 @@ from constantes import *
 
     
 pygame.init()
-window = pygame.display.set_mode((600, 640))
 
+#Open the Pygame window
+window = pygame.display.set_mode((x_size_window, y_size_window))
+#Icon
+game_icon = pygame.image.load(image_icon)
+pygame.display.set_icon(game_icon)
+#Name of the windoww
+pygame.display.set_caption(name_window)
+#Update window
+pygame.display.flip()
 
 field = Field()
 tube = Iteams("tube", field.labyrinth)
@@ -18,14 +33,6 @@ needle = Iteams("needle", field.labyrinth)
 ether = Iteams("ether", field.labyrinth)
 mg = Hero(False, field.labyrinth)
 
-
-pygame.display.flip()
-
-icon = pygame.image.load("images/player.png")
-
-pygame.display.set_icon(icon)
-
-pygame.display.set_caption("MAC GYVYER!")
 
 tube.place_iteam()
 field.update(tube.nl, tube.nc, mg.n_line, mg.n_column, "T")
@@ -50,7 +57,6 @@ while continuer_game:
             continuer_game = 0
 
         elif event.type == KEYDOWN:
-                
                 if event.key == K_ESCAPE:
                     continuer_game = 0    
                 elif event.key == K_RIGHT:
@@ -73,20 +79,20 @@ while continuer_game:
     img_legend = pygame.image.load(image_legend).convert()
 
     if not mg.collect_tube:
-        window.blit(img_tube, (tube.nc*40, tube.nl*40))
+        window.blit(img_tube, (tube.nc*size_sprite, tube.nl*size_sprite))
     if not mg.collect_ether:
-        window.blit(img_ether, (ether.nc*40, ether.nl*40))
+        window.blit(img_ether, (ether.nc*size_sprite, ether.nl*size_sprite))
     if not mg.collect_needle:
-        window.blit(img_needle, (needle.nc*40, needle.nl*40))
-    window.blit(guard, (13*40, 14*40))
-    window.blit(img_legend, (0, 560))
+        window.blit(img_needle, (needle.nc*size_sprite, needle.nl*size_sprite))
     
-    window.blit(img_mg, (mg.n_column*40, mg.n_line*40))
-
+    window.blit(guard, (13*size_sprite, 14*size_sprite))
+    window.blit(img_legend, (0, size_sprite*(y_number_sprites - 2)))
+    window.blit(img_mg, (mg.n_column*size_sprite, mg.n_line*size_sprite))
     pygame.display.flip()
 
     mg.collect_iteams(tube, needle, ether)
     if mg.n_line == 14 and mg.n_column == 13:
+
         if mg.syringe == True:
             print("syringe is collected")
             print("MG is free")
@@ -99,14 +105,8 @@ while continuer_game:
             window.blit(img_died, (0, 0))
             pygame.display.flip()
             continuer_game = False 
+
     field.update(mg.n_line, mg.n_column, mg.n_line, mg.n_column, "M")
     field.affiche_lab(window)
     print("contue game", continuer_game, "\n", "iteams", mg.collect_needle, mg.collect_tube, mg.collect_ether, "syringe", mg.syringe)
     
-
- 
-    
-        
-            
-            
-      
