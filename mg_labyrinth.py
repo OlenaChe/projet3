@@ -1,10 +1,3 @@
-"""MacGiver Labyrinth Game
-Game in which we have to move MacGyver to exite of the labyrinth.
-He has to collect 3 iteams for syringe which could help to put the guard to sleep
-
-Python script
-Files: mg_labyrinthe.py, classes.py, constants.py + images"""
-
 import math
 import random
 
@@ -24,7 +17,7 @@ game_icon = pygame.image.load(image_icon)
 pygame.display.set_icon(game_icon)
 #Name of the windoww
 pygame.display.set_caption(name_window)
-#Update window
+
 pygame.display.flip()
 
 field = Field()
@@ -67,6 +60,10 @@ while continuer_game:
                     mg.move("U", field.labyrinth)
                 elif event.key == K_DOWN:
                     mg.move("D", field.labyrinth)
+                elif event.key == K_q:
+                    continuer_game = 0 
+                    pygame.quit()
+                    sys.exit()
 
     floor = pygame.image.load(image_floor).convert()
     guard = pygame.image.load(image_guard).convert_alpha()
@@ -98,13 +95,13 @@ while continuer_game:
             print("MG is free")
             window.blit(img_escaped, (0, 0))
             pygame.display.flip()
-            continuer_game = False 
+            #continuer_game = False 
             
         else:
             print("MG is dead")
             window.blit(img_died, (0, 0))
             pygame.display.flip()
-            continuer_game = False 
+            #continuer_game = False 
 
     field.update(mg.n_line, mg.n_column, mg.n_line, mg.n_column, "M")
     field.affiche_lab(window)

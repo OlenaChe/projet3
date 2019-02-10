@@ -1,5 +1,3 @@
-"""MacGyver Game Classes"""
-
 import math
 import random
 
@@ -7,9 +5,7 @@ import pygame
 from pygame.locals import * 
 from constantes import *
 
-#Opening the Pygame window
 window = pygame.display.set_mode((x_size_window, y_size_window))
-# Loading images
 img_tube = pygame.image.load(image_tube).convert_alpha()
 img_needle = pygame.image.load(image_needle).convert_alpha()
 img_ether = pygame.image.load(image_ether).convert_alpha()
@@ -17,9 +13,9 @@ img_legend = pygame.image.load(image_legend).convert_alpha()
 
 
 class Field:
-    """Class which defines a labyrinth"""
+    """ """
     def __init__(self):
-        """Method which creates a labyrinth"""
+        """ """
         self.labyrinth = [
         [1,1,1,1,1,1,1,1,1,1,1,1,1,0,1],
         [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -41,10 +37,10 @@ class Field:
     
 
     def affiche_lab(self, window):
-        """Methode which displays a labyrinth"""
+        """ """
         for line in self.labyrinth:
             print(" ".join([str(x) for x in line]))
-        # Loading images
+
         floor = pygame.image.load(image_floor).convert()
         guard = pygame.image.load(image_guard).convert_alpha()
         tube = pygame.image.load(image_tube).convert_alpha()
@@ -65,16 +61,16 @@ class Field:
 
 
     def update(self, nl, nc, n_line, n_column, letter):
-        """Methode which updates the labyrinth"""
+        """ """
         self.labyrinth[nl][nc] = letter
 
 
 
 
 class Iteams:
-    """Class defines the iteams of syringe which MacGyver has to collect"""
+    """ """
     def __init__(self, name, labyrinth):
-        """Methode which creates the iteams"""
+        """ """
         self.nl = 0
         self.nc = 0
         self.name = name
@@ -82,7 +78,7 @@ class Iteams:
     
 
     def place_iteam(self):
-        """Methode which places the iteams in labyrinth"""
+        """ """
         continue_place = 1
         while continue_place:
             nl = random.randrange(14)
@@ -98,9 +94,9 @@ class Iteams:
 
 
 class Hero:
-    """Class Hero which defines a main character of the game"""
+    """Class Hero define a main character of game """
     def __init__(self, syringe, labyrinth):
-        """Methode which creates a a main character"""
+        """ """
         self.image_macgyver = pygame.image.load(image_macgyver).convert_alpha()
         self.n_line = 0		# position № line
         self.n_column = 13 # position № column
@@ -112,7 +108,7 @@ class Hero:
 
 
     def collect_iteams(self, tube_, needle_, ether_):
-        """ 
+        """ """
         if self.n_line == tube_.nl and self.n_column == tube_.nc:
             self.collect_tube = True
             print("tube is collected")
@@ -138,8 +134,7 @@ class Hero:
 
     
     def move(self, direction, labyrinth):  
-        """Methode which determines the movement of the hero: 
-        right (R), left(L), up(U) and down(D)"""
+        """Determines the movement of the hero: right (R), left(L), up(U) and down(D)"""
         #move left
         if direction == "L":
         
