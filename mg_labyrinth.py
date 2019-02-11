@@ -20,7 +20,8 @@ pygame.display.set_caption(name_window)
 
 pygame.display.flip()
 
-field = Field()
+field = Field('l.txt')
+print(field.labyrinth)
 tube = Iteams("tube", field.labyrinth)
 needle = Iteams("needle", field.labyrinth)
 ether = Iteams("ether", field.labyrinth)
@@ -28,15 +29,15 @@ mg = Hero(False, field.labyrinth)
 
 
 tube.place_iteam()
-field.update(tube.nl, tube.nc, mg.n_line, mg.n_column, "T")
+field.update(tube.nl, tube.nc, "T")
 
 needle.place_iteam()
-field.update(needle.nl, needle.nc, mg.n_line, mg.n_column, "N")
+field.update(needle.nl, needle.nc, "N")
 
 ether.place_iteam()
-field.update(ether.nl, ether.nc, mg.n_line, mg.n_column, "E")
+field.update(ether.nl, ether.nc, "E")
 
-field.update(mg.n_line, mg.n_column, mg.n_line, mg.n_column, "M")
+field.update(mg.n_line, mg.n_column, "M")
 field.affiche_lab(window)
 
 continuer_game = True
@@ -65,26 +66,15 @@ while continuer_game:
                     pygame.quit()
                     sys.exit()
 
-    floor = pygame.image.load(image_floor).convert()
-    guard = pygame.image.load(image_guard).convert_alpha()
-    img_tube = pygame.image.load(image_tube).convert_alpha()
-    img_needle = pygame.image.load(image_needle).convert_alpha()
-    img_ether = pygame.image.load(image_ether).convert_alpha()
-    img_mg = pygame.image.load(image_macgyver).convert_alpha()
+    mg.show_iteams(tube, needle, ether)
     img_died = pygame.image.load(image_died).convert_alpha()
     img_escaped = pygame.image.load(image_escaped).convert_alpha()
     img_legend = pygame.image.load(image_legend).convert()
 
-    if not mg.collect_tube:
-        window.blit(img_tube, (tube.nc*size_sprite, tube.nl*size_sprite))
-    if not mg.collect_ether:
-        window.blit(img_ether, (ether.nc*size_sprite, ether.nl*size_sprite))
-    if not mg.collect_needle:
-        window.blit(img_needle, (needle.nc*size_sprite, needle.nl*size_sprite))
     
-    window.blit(guard, (13*size_sprite, 14*size_sprite))
-    window.blit(img_legend, (0, size_sprite*(y_number_sprites - 2)))
-    window.blit(img_mg, (mg.n_column*size_sprite, mg.n_line*size_sprite))
+    
+    
+    
     pygame.display.flip()
 
     mg.collect_iteams(tube, needle, ether)
@@ -103,7 +93,7 @@ while continuer_game:
             pygame.display.flip()
             #continuer_game = False 
 
-    field.update(mg.n_line, mg.n_column, mg.n_line, mg.n_column, "M")
+    field.update(mg.n_line, mg.n_column, "M")
     field.affiche_lab(window)
     print("contue game", continuer_game, "\n", "iteams", mg.collect_needle, mg.collect_tube, mg.collect_ether, "syringe", mg.syringe)
     
