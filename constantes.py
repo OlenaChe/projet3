@@ -13,7 +13,7 @@ image_icon = "images/player.png"
 
 #List of the images
 image_floor = "images/floor.png"
-image_guard = "images/guardian.png"
+image_guardian = "images/guardian.png"
 image_tube = "images/tube.png"
 image_needle = "images/needle.png"
 image_ether = "images/ether.png"

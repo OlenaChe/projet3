@@ -15,13 +15,13 @@ class Field:
     def __init__(self, file):
         self.file = file
         self.labyrinth = []
-        self.generer()
-        self.guard = pygame.image.load(image_guard).convert()
+        self.generate()
+        self.guardian = pygame.image.load(image_guardian).convert()
         self.floor = pygame.image.load(image_floor).convert()
         self.legend = pygame.image.load(image_legend).convert()
     
     
-    def generer(self):
+    def generate(self):
         """""" 
         with open(self.file, "r") as file:
             structure_lab = []
@@ -34,7 +34,7 @@ class Field:
             self.labyrinth = structure_lab
     
 
-    def affiche_lab(self, window):
+    def display_lab(self, window):
         """ """
 
         num_line = 0
@@ -45,7 +45,7 @@ class Field:
                 y = num_line * 40
                 if sprite != "1": 
                     if sprite == "G":
-                        window.blit(self.guard, (x,y))
+                        window.blit(self.guardian, (x,y))
                     else:
                         window.blit(self.floor, (x,y))
                 num_case += 1
@@ -57,6 +57,7 @@ class Field:
     def update(self, nl, nc, letter):
         """ """
         self.labyrinth[nl][nc] = letter
+        
 
 
 
@@ -82,7 +83,7 @@ class Iteams:
                 self.nl = nl
                 self.nc = nc
                 continue_place = 0
-                print(self.name, "placement: ligne", self.nl + 1 , ", column", self.nc + 1)
+                
 
 
 
@@ -102,25 +103,24 @@ class Hero:
         self.img_tube = pygame.image.load(image_tube).convert_alpha()
         self.img_needle = pygame.image.load(image_needle).convert_alpha()
         self.img_ether = pygame.image.load(image_ether).convert_alpha()
+        self.img_died = pygame.image.load(image_died).convert_alpha()
+        self.img_escaped = pygame.image.load(image_escaped).convert_alpha()
 
 
-    def collect_iteams(self, tube_, needle_, ether_):
+    def collect_iteams(self, tube, needle, ether):
         """ """
-        if self.n_line == tube_.nl and self.n_column == tube_.nc:
+        if self.n_line == tube.nl and self.n_column == tube.nc:
             self.collect_tube = True
-            print("tube is collected")
             window.blit(self.img_tube, (40, 600))
             pygame.display.flip()
 
-        if self.n_line == needle_.nl and self.n_column == needle_.nc:
+        if self.n_line == needle.nl and self.n_column == needle.nc:
             self.collect_needle = True
-            print("needle is collected")
             window.blit(self.img_needle, (80, 600))
             pygame.display.flip()
 
-        if self.n_line == ether_.nl and self.n_column == ether_.nc:
+        if self.n_line == ether.nl and self.n_column == ether.nc:
             self.collect_ether = True
-            print("ether is collected")
             window.blit(self.img_ether, (120, 600))
             pygame.display.flip()
 
@@ -129,85 +129,61 @@ class Hero:
         
         return(self.syringe)
 
-    def show_iteams(self, tube_, needle_, ether_):
+    def show_iteams(self, tube, needle, ether):
         if not self.collect_tube:
-            window.blit(self.img_tube, (tube_.nc*size_sprite, tube_.nl*size_sprite))
+            window.blit(self.img_tube, (tube.nc*size_sprite, tube.nl*size_sprite))
         if not self.collect_ether:
-            window.blit(self.img_ether, (ether_.nc*size_sprite, ether_.nl*size_sprite))
+            window.blit(self.img_ether, (ether.nc*size_sprite, ether.nl*size_sprite))
         if not self.collect_needle:
-            window.blit(self.img_needle, (needle_.nc*size_sprite, needle_.nl*size_sprite))
+            window.blit(self.img_needle, (needle.nc*size_sprite, needle.nl*size_sprite))
 
     
     def move(self, direction, labyrinth):  
         """Determines the movement of the hero: right (R), left(L), up(U) and down(D)"""
+        
         #move left
-        window.blit(self.image_macgyver, (self.n_column*size_sprite, self.n_line*size_sprite))
-
         if direction == "L":
         
             if self.n_column > 0:
-                
                 if labyrinth[self.n_line][self.n_column - 1] != "1":
                     self.n_column -= 1
-                    labyrinth[self.n_line][self.n_column] = "M"
                     labyrinth[self.n_line][self.n_column + 1] = "0"
-                else:
-                    print("STOP! This is a wall")
 
         #move right
         elif direction == "R":
 
             if self.n_column < 14:
-                
                 if labyrinth[self.n_line][self.n_column + 1] != "1":
                     self.n_column += 1
-                    labyrinth[self.n_line][self.n_column] = "M"
                     labyrinth[self.n_line][self.n_column - 1] = "0"
-                else:
-                    print("STOP! This is a wall") 
+                    
 
         #move down
         elif direction == "D":
 
             if self.n_line < 14:
-                
                 if labyrinth[self.n_line + 1][self.n_column] != "1":
                     self.n_line += 1 
-                    labyrinth[self.n_line][self.n_column] = "M"
                     labyrinth[self.n_line - 1][self.n_column] = "0"
-                else:
-                    print("STOP! This is a wall")
+                
 
         #move up
         elif direction == "U":
 
             if self.n_line > 0:
-                
                 if labyrinth[self.n_line - 1][self.n_column] != "1":
                     self.n_line -= 1 
-                    labyrinth[self.n_line][self.n_column] = "M"
                     labyrinth[self.n_line + 1][self.n_column] = "0"
-                else:
-                    print("STOP! This is a wall")
+        
 
-        #quit game
-        elif direction == "Q":
-            return False
-        else:
-            print("Input R (right) ou L (left) ou U (up) ou D (down) ou Q (quit)")
-
-
-        print("You are here now: line №", self.n_line + 1,  ", column №", self.n_column + 1)
-
-class Gardien:
-    
+class Guardian:
 
     def __init__(self):
         
-        self.guard = pygame.image.load(image_guard).convert()
+        self.guardian = pygame.image.load(image_guardian).convert()
 
 
-    def show(self):
+    def show_guardian(self):
         num_line = 0
         for line in self.labyrinth:
             num_case = 0
@@ -215,9 +191,6 @@ class Gardien:
                 x = num_case * 40
                 y = num_line * 40
                 if sprite == "G":         
-                    window.blit(self.guard, (x,y))
+                    window.blit(self.guardian, (x,y))
                 num_case += 1
             num_line += 1
-
-
-

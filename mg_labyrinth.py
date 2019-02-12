@@ -21,11 +21,10 @@ pygame.display.set_caption(name_window)
 pygame.display.flip()
 
 field = Field('l.txt')
-print(field.labyrinth)
+mg = Hero(False, field.labyrinth)
 tube = Iteams("tube", field.labyrinth)
 needle = Iteams("needle", field.labyrinth)
 ether = Iteams("ether", field.labyrinth)
-mg = Hero(False, field.labyrinth)
 
 
 tube.place_iteam()
@@ -37,8 +36,7 @@ field.update(needle.nl, needle.nc, "N")
 ether.place_iteam()
 field.update(ether.nl, ether.nc, "E")
 
-field.update(mg.n_line, mg.n_column, "M")
-field.affiche_lab(window)
+field.display_lab(window)
 
 continuer_game = True
 while continuer_game:
@@ -66,34 +64,20 @@ while continuer_game:
                     pygame.quit()
                     sys.exit()
 
-    mg.show_iteams(tube, needle, ether)
-    img_died = pygame.image.load(image_died).convert_alpha()
-    img_escaped = pygame.image.load(image_escaped).convert_alpha()
-    img_legend = pygame.image.load(image_legend).convert()
 
-    
-    
-    
-    
+    mg.show_iteams(tube, needle, ether)
+    window.blit(mg.image_macgyver, (mg.n_column*size_sprite, mg.n_line*size_sprite))
     pygame.display.flip()
 
     mg.collect_iteams(tube, needle, ether)
     if mg.n_line == 14 and mg.n_column == 13:
 
         if mg.syringe == True:
-            print("syringe is collected")
-            print("MG is free")
-            window.blit(img_escaped, (0, 0))
-            pygame.display.flip()
-            #continuer_game = False 
+            window.blit(mg.img_escaped, (0, 0))
+            pygame.display.flip()  
             
         else:
-            print("MG is dead")
-            window.blit(img_died, (0, 0))
+            window.blit(mg.img_died, (0, 0))
             pygame.display.flip()
-            #continuer_game = False 
-
-    field.update(mg.n_line, mg.n_column, "M")
-    field.affiche_lab(window)
-    print("contue game", continuer_game, "\n", "iteams", mg.collect_needle, mg.collect_tube, mg.collect_ether, "syringe", mg.syringe)
-    
+           
+    field.display_lab(window)
