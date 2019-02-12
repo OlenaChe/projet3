@@ -16,7 +16,7 @@ class Field:
         self.file = file
         self.labyrinth = []
         self.generate()
-        self.guardian = pygame.image.load(image_guardian).convert()
+        self.guardian = pygame.image.load(image_guardian).convert_alpha()
         self.floor = pygame.image.load(image_floor).convert()
         self.legend = pygame.image.load(image_legend).convert()
     
@@ -45,6 +45,7 @@ class Field:
                 y = num_line * 40
                 if sprite != "1": 
                     if sprite == "G":
+                        window.blit(self.floor, (x,y))
                         window.blit(self.guardian, (x,y))
                     else:
                         window.blit(self.floor, (x,y))
@@ -54,9 +55,9 @@ class Field:
         window.blit(self.legend, (0, size_sprite*(y_number_sprites - 2)))
         
 
-    def update(self, nl, nc, letter):
+    #def update(self, nl, nc, letter):
         """ """
-        self.labyrinth[nl][nc] = letter
+        #self.labyrinth[nl][nc] = letter
         
 
 

@@ -28,13 +28,16 @@ ether = Iteams("ether", field.labyrinth)
 
 
 tube.place_iteam()
-field.update(tube.nl, tube.nc, "T")
-
+#field.update(tube.nl, tube.nc, "T")
 needle.place_iteam()
-field.update(needle.nl, needle.nc, "N")
+while tube.nl == needle.nl and tube.nc == needle.nc:
+    needle.place_iteam()
+#field.update(needle.nl, needle.nc, "N")
 
 ether.place_iteam()
-field.update(ether.nl, ether.nc, "E")
+while (ether.nl == needle.nl and ether.nc == needle.nc) or (ether.nl == tube.nl and ether.nc == tube.nc):
+    ether.place_iteam()
+#field.update(ether.nl, ether.nc, "E")
 
 field.display_lab(window)
 
@@ -70,7 +73,16 @@ while continuer_game:
     pygame.display.flip()
 
     mg.collect_iteams(tube, needle, ether)
-    if mg.n_line == 14 and mg.n_column == 13:
+  
+    if field.labyrinth[mg.n_line][mg.n_column] == "G":
+        if mg.syringe == True:
+            window.blit(mg.img_escaped, (0, 0))
+            pygame.display.flip()  
+
+        else:
+            window.blit(mg.img_died, (0, 0))
+            pygame.display.flip()
+
 
         if mg.syringe == True:
             window.blit(mg.img_escaped, (0, 0))
