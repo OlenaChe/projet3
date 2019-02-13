@@ -1,3 +1,5 @@
+"""MacGyver Labyrunth Game Classes"""
+
 import math
 import random
 
@@ -9,7 +11,7 @@ window = pygame.display.set_mode((x_size_window, y_size_window))
 
 
 class Field:
-    """ """
+    """Classe which creates a field of the game"""
     def __init__(self, file):
         self.file = file
         self.labyrinth = []
@@ -19,7 +21,8 @@ class Field:
         self.legend = pygame.image.load(image_legend).convert()
 
     def generate(self):
-        """ """
+        """Method for generating the field structure based on the file.
+        We create a list which contains other lists consisting of lines"""
         with open(self.file, "r") as file:
             structure_lab = []
             for line in file:
@@ -31,7 +34,7 @@ class Field:
             self.labyrinth = structure_lab
 
     def display_lab(self, window):
-        """ """
+        """Method for displaying a labyrinth"""
         num_line = 0
         for line in self.labyrinth:
             num_case = 0
@@ -50,16 +53,15 @@ class Field:
 
 
 class Iteams:
-    """ """
+    """Classe defines the iteams which has to be collected by game character"""
     def __init__(self, name, labyrinth):
-        """ """
         self.y = 0
         self.x = 0
         self.name = name
         self.labyrinth = labyrinth
 
     def place_iteam(self):
-        """ """
+        """Method allows to place the iteams in random order"""
         continue_place = 1
         while continue_place:
             y = random.randrange(14)
@@ -72,9 +74,8 @@ class Iteams:
 
 
 class Hero:
-    """Class Hero define a main character of game """
+    """Class defines a character of game"""
     def __init__(self, syringe, labyrinth):
-        """ """
         self.image_macgyver = pygame.image.load(image_macgyver).convert_alpha()
         self.y = mg_y
         self.x = mg_x
@@ -90,7 +91,8 @@ class Hero:
         self.image_escaped = pygame.image.load(image_escaped).convert_alpha()
 
     def collect_iteams(self, tube, needle, ether):
-        """ """
+        """Methode defines and show board below which iteams are collected
+        and whether the syringe is ready"""
         if self.y == tube.y and self.x == tube.x:
             self.collect_tube = True
             window.blit(self.image_tube, (40, 600))
@@ -105,9 +107,10 @@ class Hero:
             pygame.display.flip()
         if self.collect_needle and self.collect_ether and self.collect_tube:
             self.syringe = True
-        return(self.syringe)
 
     def show_iteams(self, tube, needle, ether):
+        """Methode displays the iteams on the field
+        until they are not collected"""
         if not self.collect_tube:
             window.blit(self.image_tube, (tube.x*sz_spr, tube.y*sz_spr))
         if not self.collect_ether:
@@ -116,7 +119,7 @@ class Hero:
             window.blit(self.image_needle, (needle.x*sz_spr, needle.y*sz_spr))
 
     def move(self, direction, labyrinth):
-        """Determines the movement of the hero:
+        """Methode determines the movement of the hero:
         right (R), left(L), up(U) and down(D)"""
         if direction == "L":
             if self.x > 0:
@@ -141,11 +144,13 @@ class Hero:
 
 
 class Guardian:
-    """"""
+    """Class defines an antagonist who guards the exit"""
     def __init__(self):
         self.guardian = pygame.image.load(image_guardian).convert()
 
     def show_guardian(self):
+        """Methode displays an image of the guardian
+        according to his sprite coordinates"""
         num_line = 0
         for line in self.labyrinth:
             num_case = 0

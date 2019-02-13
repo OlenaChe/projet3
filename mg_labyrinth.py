@@ -1,3 +1,16 @@
+#!/usr/bin/python3
+# -*- coding: Utf-8 -*
+
+"""
+MacGyver Labyrinth Game
+Game in which we move MacGyver through a labyrinth
+by collecting a syringe which would help him to put a guard to sleep
+and exit from labyrinth.
+
+Script Python
+Files : dklabyrinthe.py, classes.py, constantes.py, l.txt + images
+"""
+
 import math
 import random
 
