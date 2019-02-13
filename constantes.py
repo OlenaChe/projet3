@@ -1,19 +1,19 @@
 """Constantes of the game MacGyver Labyrinth"""
 
-#Window settings
+# Window settings
 sz_spr = 40
 x_number_sprites = 15
-y_number_sprites = 16 
+y_number_sprites = 16
 mg_x = 13
 mg_y = 0
 x_size_window = sz_spr * x_number_sprites
 y_size_window = sz_spr * y_number_sprites
 
-#Customizing the window
+# Customizing the window
 name_window = "MacGyver Labyrinth"
 image_icon = "images/player.png"
 
-#List of the images
+# List of the images
 image_floor = "images/floor.png"
 image_guardian = "images/guardian.png"
 image_tube = "images/tube.png"
