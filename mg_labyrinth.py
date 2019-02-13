@@ -17,20 +17,20 @@ import random
 import pygame
 from pygame.locals import *
 
-from classes import *
+from classes import Field, Iteams, Hero, Guardian
 from constantes import *
 
 pygame.init()
 
-window = pygame.display.set_mode((x_size_window, y_size_window))
-game_icon = pygame.image.load(image_icon)
+window = pygame.display.set_mode((X_SIZE_WINDOW, Y_SIZE_WINDOW))
+game_icon = pygame.image.load(IMAGE_ICON)
 pygame.display.set_icon(game_icon)
-pygame.display.set_caption(name_window)
+pygame.display.set_caption(NAME_WINDOW)
 
 pygame.display.flip()
 
 field = Field('l.txt')
-mg = Hero(False, field.labyrinth)
+mg = Hero(field.labyrinth)
 tube = Iteams("tube", field.labyrinth)
 needle = Iteams("needle", field.labyrinth)
 ether = Iteams("ether", field.labyrinth)
@@ -75,20 +75,20 @@ while continuer_game:
                     sys.exit()
 
     mg.show_iteams(tube, needle, ether)
-    window.blit(mg.image_macgyver, (mg.x*sz_spr, mg.y*sz_spr))
+    window.blit(mg.IMAGE_MACGYVER, (mg.x*SZ_SPR, mg.y*SZ_SPR))
     pygame.display.flip()
     mg.collect_iteams(tube, needle, ether)
     field.display_lab(window)
     if field.labyrinth[mg.y][mg.x] == "G":
         if mg.syringe is True:
-            window.blit(mg.image_escaped, (0, 0))
+            window.blit(mg.IMAGE_ESCAPED, (0, 0))
             pygame.display.flip()
         else:
-            window.blit(mg.image_died, (0, 0))
+            window.blit(mg.IMAGE_DIED, (0, 0))
             pygame.display.flip()
         if mg.syringe is True:
-            window.blit(mg.image_escaped, (0, 0))
+            window.blit(mg.IMAGE_ESCAPED, (0, 0))
             pygame.display.flip()
         else:
-            window.blit(mg.image_died, (0, 0))
+            window.blit(mg.IMAGE_DIED, (0, 0))
             pygame.display.flip()

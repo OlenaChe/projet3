@@ -7,7 +7,7 @@ import pygame
 from pygame.locals import *
 from constantes import *
 
-window = pygame.display.set_mode((x_size_window, y_size_window))
+window = pygame.display.set_mode((X_SIZE_WINDOW, Y_SIZE_WINDOW))
 
 
 class Field:
@@ -16,9 +16,9 @@ class Field:
         self.file = file
         self.labyrinth = []
         self.generate()
-        self.guardian = pygame.image.load(image_guardian).convert_alpha()
-        self.floor = pygame.image.load(image_floor).convert()
-        self.legend = pygame.image.load(image_legend).convert()
+        self.guardian = pygame.image.load(IMAGE_GUARDIAN).convert_alpha()
+        self.floor = pygame.image.load(IMAGE_FLOOR).convert()
+        self.legend = pygame.image.load(IMAGE_LEGEND).convert()
 
     def generate(self):
         """Method for generating the field structure based on the file.
@@ -49,7 +49,7 @@ class Field:
                         window.blit(self.floor, (x, y))
                 num_case += 1
             num_line += 1
-        window.blit(self.legend, (0, sz_spr*(y_number_sprites - 2)))
+        window.blit(self.legend, (0, SZ_SPR*(Y_NUMBER_SPRITES - 2)))
 
 
 class Iteams:
@@ -75,35 +75,35 @@ class Iteams:
 
 class Hero:
     """Class defines a character of game"""
-    def __init__(self, syringe, labyrinth):
-        self.image_macgyver = pygame.image.load(image_macgyver).convert_alpha()
-        self.y = mg_y
-        self.x = mg_x
+    def __init__(self, labyrinth):
+        self.IMAGE_MACGYVER = pygame.image.load(IMAGE_MACGYVER).convert_alpha()
+        self.y = MG_Y
+        self.x = MG_X
         self.level = labyrinth
         self.syringe = False
         self.collect_tube = False
         self.collect_needle = False
         self.collect_ether = False
-        self.image_tube = pygame.image.load(image_tube).convert_alpha()
-        self.image_needle = pygame.image.load(image_needle).convert_alpha()
-        self.image_ether = pygame.image.load(image_ether).convert_alpha()
-        self.image_died = pygame.image.load(image_died).convert_alpha()
-        self.image_escaped = pygame.image.load(image_escaped).convert_alpha()
+        self.IMAGE_TUBE = pygame.image.load(IMAGE_TUBE).convert_alpha()
+        self.IMAGE_NEEDLE = pygame.image.load(IMAGE_NEEDLE).convert_alpha()
+        self.IMAGE_ETHER = pygame.image.load(IMAGE_ETHER).convert_alpha()
+        self.IMAGE_DIED = pygame.image.load(IMAGE_DIED).convert_alpha()
+        self.IMAGE_ESCAPED = pygame.image.load(IMAGE_ESCAPED).convert_alpha()
 
     def collect_iteams(self, tube, needle, ether):
         """Methode defines and show board below which iteams are collected
         and whether the syringe is ready"""
         if self.y == tube.y and self.x == tube.x:
             self.collect_tube = True
-            window.blit(self.image_tube, (40, 600))
+            window.blit(self.IMAGE_TUBE, (40, 600))
             pygame.display.flip()
         if self.y == needle.y and self.x == needle.x:
             self.collect_needle = True
-            window.blit(self.image_needle, (80, 600))
+            window.blit(self.IMAGE_NEEDLE, (80, 600))
             pygame.display.flip()
         if self.y == ether.y and self.x == ether.x:
             self.collect_ether = True
-            window.blit(self.image_ether, (120, 600))
+            window.blit(self.IMAGE_ETHER, (120, 600))
             pygame.display.flip()
         if self.collect_needle and self.collect_ether and self.collect_tube:
             self.syringe = True
@@ -112,11 +112,11 @@ class Hero:
         """Methode displays the iteams on the field
         until they are not collected"""
         if not self.collect_tube:
-            window.blit(self.image_tube, (tube.x*sz_spr, tube.y*sz_spr))
+            window.blit(self.IMAGE_TUBE, (tube.x*SZ_SPR, tube.y*SZ_SPR))
         if not self.collect_ether:
-            window.blit(self.image_ether, (ether.x*sz_spr, ether.y*sz_spr))
+            window.blit(self.IMAGE_ETHER, (ether.x*SZ_SPR, ether.y*SZ_SPR))
         if not self.collect_needle:
-            window.blit(self.image_needle, (needle.x*sz_spr, needle.y*sz_spr))
+            window.blit(self.IMAGE_NEEDLE, (needle.x*SZ_SPR, needle.y*SZ_SPR))
 
     def move(self, direction, labyrinth):
         """Methode determines the movement of the hero:
@@ -146,7 +146,7 @@ class Hero:
 class Guardian:
     """Class defines an antagonist who guards the exit"""
     def __init__(self):
-        self.guardian = pygame.image.load(image_guardian).convert()
+        self.guardian = pygame.image.load(IMAGE_GUARDIAN).convert()
 
     def show_guardian(self):
         """Methode displays an image of the guardian

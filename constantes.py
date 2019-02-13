@@ -1,25 +1,25 @@
 """Constantes of the game MacGyver Labyrinth"""
 
 # Window settings
-sz_spr = 40
-x_number_sprites = 15
-y_number_sprites = 16
-mg_x = 13
-mg_y = 0
-x_size_window = sz_spr * x_number_sprites
-y_size_window = sz_spr * y_number_sprites
+SZ_SPR = 40
+X_NUMBER_SPRITES = 15
+Y_NUMBER_SPRITES = 16
+MG_X = 13
+MG_Y = 0
+X_SIZE_WINDOW = SZ_SPR * X_NUMBER_SPRITES
+Y_SIZE_WINDOW = SZ_SPR * Y_NUMBER_SPRITES
 
 # Customizing the window
-name_window = "MacGyver Labyrinth"
-image_icon = "images/player.png"
+NAME_WINDOW = "MacGyver Labyrinth"
+IMAGE_ICON = "images/player.png"
 
 # List of the images
-image_floor = "images/floor.png"
-image_guardian = "images/guardian.png"
-image_tube = "images/tube.png"
-image_needle = "images/needle.png"
-image_ether = "images/ether.png"
-image_macgyver = "images/player.png"
-image_escaped = "images/escaped.png"
-image_died = "images/died.png"
-image_legend = "images/legend.png"
+IMAGE_FLOOR = "images/floor.png"
+IMAGE_GUARDIAN = "images/guardian.png"
+IMAGE_TUBE = "images/tube.png"
+IMAGE_NEEDLE = "images/needle.png"
+IMAGE_ETHER = "images/ether.png"
+IMAGE_MACGYVER = "images/player.png"
+IMAGE_ESCAPED = "images/escaped.png"
+IMAGE_DIED = "images/died.png"
+IMAGE_LEGEND = "images/legend.png"
