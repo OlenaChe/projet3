@@ -66,7 +66,7 @@ while continuer_game:
                     sys.exit()
 
     mg.show_iteams(tube, needle, ether)
-    window.blit(mg.image_macgyver, (mg.x*size_sprite, mg.y*size_sprite))
+    window.blit(mg.image_macgyver, (mg.x*sz_spr, mg.y*sz_spr))
     pygame.display.flip()
     
     mg.collect_iteams(tube, needle, ether)
